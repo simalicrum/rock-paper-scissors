@@ -1,0 +1,25 @@
+#buttons {
+  background: blue;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.button {
+  margin: 10px;
+  padding: 10px;
+  background:red;
+  border: 2px solid black;
+}
+
+#results {
+  background: yellow;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.score {
+  background: green;
+  
+}
