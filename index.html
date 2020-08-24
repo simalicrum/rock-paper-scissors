@@ -10,7 +10,7 @@
     <div class="button" id="paper">paper</div>
     <div class="button" id="scissors">scissors</div>
   </div>
-  <div></div>
+  <div id="wins">Rounds Won:</div>
   <div id="results">
     <div class="score">
       Human:
@@ -36,22 +36,30 @@
         return "scissors";
     }
   }
-  function playRound(playerSelection, computerSelection) {
+  function playRound(
+    playerSelection,
+    computerSelection,
+    playerScore,
+    computerScore
+  ) {
     if (
       (playerSelection == "rock" && computerSelection == "scissors") ||
       (playerSelection == "paper" && computerSelection == "rock") ||
       (playerSelection == "scissors" && computerSelection == "paper")
     ) {
-      return "win";
+      playerScore += 1;
+      document.getElementById("message").innerHTML = "You Win!";
     } else if (
       (computerSelection == "rock" && playerSelection == "scissors") ||
       (computerSelection == "paper" && playerSelection == "rock") ||
       (computerSelection == "scissors" && playerSelection == "paper")
     ) {
-      return "loss";
+      computerScore += 1;
+      document.getElementById("message").innerHTML = "You Lose!";
     } else {
-      return "tie";
+      document.getElementById("message").innerHTML = "It's a tie!";
     }
+    return [playerScore, computerScore];
   }
 
   function updateScore(gameResult, playerScore, computerScore) {
@@ -74,30 +82,22 @@
   function game() {
     let playerScore = 0;
     let computerScore = 0;
+    let totalRounds = 0;
     document.getElementById("rock").addEventListener("click", function () {
       let computerSelection = computerPlay();
-      gameResult = playRound("rock", computerSelection);
-      updatedScores = updateScore(gameResult, playerScore, computerScore);
-      playerScore = updatedScores[0];
-      computerScore = updatedScores[1];
+      [playerScore, computerScore] = playRound("rock", computerSelection, playerScore, computerScore);
       document.getElementById("player-score").innerHTML = playerScore;
       document.getElementById("computer-score").innerHTML = computerScore;
     });
     document.getElementById("paper").addEventListener("click", function () {
       let computerSelection = computerPlay();
-      gameResult = playRound("paper", computerSelection);
-      updatedScores = updateScore(gameResult, playerScore, computerScore);
-      playerScore = updatedScores[0];
-      computerScore = updatedScores[1];
+      [playerScore, computerScore] = playRound("paper", computerSelection, playerScore, computerScore);
       document.getElementById("player-score").innerHTML = playerScore;
       document.getElementById("computer-score").innerHTML = computerScore;
     });
     document.getElementById("scissors").addEventListener("click", function () {
       let computerSelection = computerPlay();
-      gameResult = playRound("scissors", computerSelection);
-      updatedScores = updateScore(gameResult, playerScore, computerScore);
-      playerScore = updatedScores[0];
-      computerScore = updatedScores[1];
+      [playerScore, computerScore] = playRound("scissors", computerSelection, playerScore, computerScore);
       document.getElementById("player-score").innerHTML = playerScore;
       document.getElementById("computer-score").innerHTML = computerScore;
     });

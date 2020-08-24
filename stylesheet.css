@@ -12,6 +12,12 @@
   border: 2px solid black;
 }
 
+#wins {
+  padding: 10px;
+  background: aqua;
+  text-align: center;
+}
+
 #results {
   background: yellow;
   display: flex;
