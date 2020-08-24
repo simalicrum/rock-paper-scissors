@@ -24,3 +24,9 @@
   padding: 10px;
   background: green;
 }
+
+#message {
+  padding: 10px;
+  background: purple;
+  text-align: center;
+}

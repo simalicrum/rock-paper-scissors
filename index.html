@@ -10,6 +10,7 @@
     <div class="button" id="paper">paper</div>
     <div class="button" id="scissors">scissors</div>
   </div>
+  <div></div>
   <div id="results">
     <div class="score">
       Human:
@@ -20,6 +21,7 @@
       <div id="computer-score">0</div>
     </div>
   </div>
+  <div id="message">Welcome to Rock Paper Scissors</div>
 </body>
 
 <script>
@@ -51,18 +53,21 @@
       return "tie";
     }
   }
-  
+
   function updateScore(gameResult, playerScore, computerScore) {
     switch (gameResult) {
-        case "win":
-          playerScore += 1;
-          break;
-        case "loss":
-          computerScore += 1;
-          break;
-        case "tie":
-          break;
-      }
+      case "win":
+        playerScore += 1;
+        document.getElementById("message").innerHTML = "You Win!";
+        break;
+      case "loss":
+        computerScore += 1;
+        document.getElementById("message").innerHTML = "You Lose!";
+        break;
+      case "tie":
+        document.getElementById("message").innerHTML = "It's a tie!";
+        break;
+    }
     return [playerScore, computerScore];
   }
 
@@ -70,72 +75,32 @@
     let playerScore = 0;
     let computerScore = 0;
     document.getElementById("rock").addEventListener("click", function () {
-      console.log("You choose: rock");
       let computerSelection = computerPlay();
-      console.log("Computer chooses: ", computerSelection);
       gameResult = playRound("rock", computerSelection);
-      console.log(gameResult);
       updatedScores = updateScore(gameResult, playerScore, computerScore);
       playerScore = updatedScores[0];
       computerScore = updatedScores[1];
-      console.log("playerScore: ", playerScore);
-      console.log("computerScore: ", computerScore);      
       document.getElementById("player-score").innerHTML = playerScore;
       document.getElementById("computer-score").innerHTML = computerScore;
     });
     document.getElementById("paper").addEventListener("click", function () {
-      console.log("You choose: paper");
       let computerSelection = computerPlay();
-      console.log("Computer chooses: ", computerSelection);
       gameResult = playRound("paper", computerSelection);
-      console.log(gameResult);
       updatedScores = updateScore(gameResult, playerScore, computerScore);
       playerScore = updatedScores[0];
       computerScore = updatedScores[1];
-      console.log("playerScore: ", playerScore);
-      console.log("computerScore: ", computerScore);
       document.getElementById("player-score").innerHTML = playerScore;
       document.getElementById("computer-score").innerHTML = computerScore;
     });
     document.getElementById("scissors").addEventListener("click", function () {
-      console.log("You choose: scissors");
       let computerSelection = computerPlay();
-      console.log("Computer chooses: ", computerSelection);
       gameResult = playRound("scissors", computerSelection);
-      console.log(gameResult);
       updatedScores = updateScore(gameResult, playerScore, computerScore);
       playerScore = updatedScores[0];
       computerScore = updatedScores[1];
-      console.log("playerScore: ", playerScore);
-      console.log("computerScore: ", computerScore);
       document.getElementById("player-score").innerHTML = playerScore;
       document.getElementById("computer-score").innerHTML = computerScore;
     });
-    if (playerScore > computerScore) {
-      console.log(
-        "You Win! You won " +
-          playerScore +
-          " rounds and computer won " +
-          computerScore +
-          " rounds."
-      );
-    } else if (computerScore > playerScore) {
-      console.log(
-        "You Lose! You won " +
-          playerScore +
-          " rounds and computer won " +
-          computerScore +
-          " rounds."
-      );
-    } else {
-      console.log(
-        "It's a tie. You won " +
-          playerScore +
-          " rounds and computer won " +
-          computerScore +
-          " rounds."
-      );
-    }
   }
   game();
 </script>
