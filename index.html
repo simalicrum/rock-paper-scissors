@@ -4,7 +4,7 @@
   <link type="text/css" rel="stylesheet" href="stylesheet.css" />
 </head>
 
-<body>
+<body id="body">
   <div id="buttons">
     <div class="button" id="rock">rock</div>
     <div class="button" id="paper">paper</div>
@@ -48,35 +48,31 @@
       (playerSelection == "scissors" && computerSelection == "paper")
     ) {
       playerScore += 1;
-      document.getElementById("message").innerHTML = "You Win!";
+      document.getElementById("message").innerHTML = "You Win the Round!";
     } else if (
       (computerSelection == "rock" && playerSelection == "scissors") ||
       (computerSelection == "paper" && playerSelection == "rock") ||
       (computerSelection == "scissors" && playerSelection == "paper")
     ) {
       computerScore += 1;
-      document.getElementById("message").innerHTML = "You Lose!";
+      document.getElementById("message").innerHTML = "You Lose the Round!";
     } else {
-      document.getElementById("message").innerHTML = "It's a tie!";
+      document.getElementById("message").innerHTML = "The round is a tie!";
     }
     return [playerScore, computerScore];
   }
 
-  function updateScore(gameResult, playerScore, computerScore) {
-    switch (gameResult) {
-      case "win":
-        playerScore += 1;
-        document.getElementById("message").innerHTML = "You Win!";
-        break;
-      case "loss":
-        computerScore += 1;
-        document.getElementById("message").innerHTML = "You Lose!";
-        break;
-      case "tie":
-        document.getElementById("message").innerHTML = "It's a tie!";
-        break;
+  function endGame(playerScore, computerScore) {
+    if (playerScore > computerScore) {
+      document.getElementById("message").innerHTML =
+        "You've won the game! Best out of five! Let's play again!";
+    } else if (computerScore > playerScore) {
+      document.getElementById("message").innerHTML =
+        "You've lost the game! Worst out of five! Let's play again!";
+    } else {
+      document.getElementById("message").innerHTML =
+        "Game is a tie! No one is a Winner! Let's Play again!";
     }
-    return [playerScore, computerScore];
   }
 
   function game() {
@@ -84,22 +80,55 @@
     let computerScore = 0;
     let totalRounds = 0;
     document.getElementById("rock").addEventListener("click", function () {
-      let computerSelection = computerPlay();
-      [playerScore, computerScore] = playRound("rock", computerSelection, playerScore, computerScore);
+      [playerScore, computerScore] = playRound(
+        "rock",
+        computerPlay(),
+        playerScore,
+        computerScore
+      );
       document.getElementById("player-score").innerHTML = playerScore;
       document.getElementById("computer-score").innerHTML = computerScore;
+      totalRounds += 1;
+      if (totalRounds == 5) {
+        endGame(playerScore, computerScore);
+        playerScore = 0;
+        computerScore = 0;
+        totalRounds = 0;
+      }
     });
     document.getElementById("paper").addEventListener("click", function () {
-      let computerSelection = computerPlay();
-      [playerScore, computerScore] = playRound("paper", computerSelection, playerScore, computerScore);
+      [playerScore, computerScore] = playRound(
+        "paper",
+        computerPlay(),
+        playerScore,
+        computerScore
+      );
       document.getElementById("player-score").innerHTML = playerScore;
       document.getElementById("computer-score").innerHTML = computerScore;
+      totalRounds += 1;
+      if (totalRounds == 5) {
+        endGame(playerScore, computerScore);
+        playerScore = 0;
+        computerScore = 0;
+        totalRounds = 0;
+      }
     });
     document.getElementById("scissors").addEventListener("click", function () {
-      let computerSelection = computerPlay();
-      [playerScore, computerScore] = playRound("scissors", computerSelection, playerScore, computerScore);
+      [playerScore, computerScore] = playRound(
+        "scissors",
+        computerPlay(),
+        playerScore,
+        computerScore
+      );
       document.getElementById("player-score").innerHTML = playerScore;
       document.getElementById("computer-score").innerHTML = computerScore;
+      totalRounds += 1;
+      if (totalRounds == 5) {
+        endGame(playerScore, computerScore);
+        playerScore = 0;
+        computerScore = 0;
+        totalRounds = 0;
+      }
     });
   }
   game();
